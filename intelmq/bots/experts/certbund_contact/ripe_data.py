@@ -324,10 +324,12 @@ def split_list(obj_list, attribute, whitelist=None):
     * entries with `org` but no `abuse-c`
     * entries with both
     * entries with 'abuse-c' but no 'org'
+    * entries with neither 'abuse-c' nor 'org'
     """
     o = []
     oa = []
     a = []
+    neither = []
     for entry in obj_list:
         if not entry.get(attribute):
             continue
@@ -340,8 +342,10 @@ def split_list(obj_list, attribute, whitelist=None):
             o.append(uppercase_org_handle(entry))
         elif entry.get('abuse-c'):
             a.append(entry.copy())
+        else:
+            neither.append(entry.copy())
 
-    return (o, oa, a)
+    return (o, oa, a, neither)
 
 
 def points_to_same_abuse_mailbox(obj, organisation_index, role_index):
@@ -440,15 +444,21 @@ def sanitize_split_and_modify(obj_list, index, whitelist,
 
     Returns:
         obj_list: sanitized and updated obj_list
+        obj_list_u: Elements from obj_list for which no contact data
+            could be determined yet. This includes entries with `org`
+            attributes that refer to unknown organisations and entries
+            with neither `org` nor `abuse-c` attributes.
         organisation_list: an updated organisation list (modified in plac)
         organisation_index: an updated index (modified in place)
     """
 
-    obj_list_o, obj_list_oa, obj_list_a = split_list(obj_list, index, whitelist)
+    obj_list_o, obj_list_oa, obj_list_a, obj_list_n = \
+        split_list(obj_list, index, whitelist)
     if verbose:
         print("** {}s {} (`org` only)".format(index, len(obj_list_o)))
         print("** {}s {} (`abuse-c` only)".format(index, len(obj_list_a)))
         print("** {}s {} (`org` and `abuse-c`)".format(index, len(obj_list_oa)))
+        print("** {}s {} (neither)".format(index, len(obj_list_n)))
         print("** Distributing entries with (`org` and `abuse-c`)")
 
     for obj in obj_list_oa:
@@ -473,7 +483,7 @@ def sanitize_split_and_modify(obj_list, index, whitelist,
     obj_list_a, organisation_list, organisation_index = modify_for_abusec(
         obj_list_a, organisation_list, organisation_index, role_index, verbose)
 
-    return (obj_list_o + obj_list_a, obj_list_u,
+    return (obj_list_o + obj_list_a, obj_list_u + obj_list_n,
             organisation_list, organisation_index)
 
 
