@@ -1,3 +1,9 @@
+intelmq (1.0.0~dev7+intevation.3.3) unstable; urgency=medium
+
+  * ripe-import: don't discard entries with neither "org" nor "abuse-c"
+
+ -- Sascha Wilde <wilde@intevation.de>  Tue, 31 Jul 2018 18:06:23 +0200
+
 intelmq (1.0.0~dev7+intevation.3.2) unstable; urgency=medium
 
   * ripe-import: fix missing information, when only data matching specific
@@ -34,7 +40,7 @@ intelmq (1.0.0~dev7+intevation.3.0~rc1) unstable; urgency=medium
     keep_most_specific_contacts selecting matches with no org.
   * FIxes and enhancements in in Shadowserver config
   * Improved ripe_diff.py (supports now with manual networks in contacts)
-  
+
  -- Sascha Wilde <wilde@intevation.de>  Mon, 17 Jul 2017 17:36:08 +0200
 
 intelmq (1.0.0~dev7+intevation.2.0~rc7) unstable; urgency=medium
