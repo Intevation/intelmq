@@ -48,7 +48,8 @@ class CERTBundRuleExpertBot(Bot):
             getattr(self.parameters, "script_directory",
                     "/opt/intelmq/var/lib/bots/notification_rules")
         self.entry_points = load_scripts(self.script_directory,
-                                         "determine_directives")
+                                         "determine_directives",
+                                         logger=self.logger)
         if not self.entry_points:
             self.logger.warning("No rules loaded.")
 
