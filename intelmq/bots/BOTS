@@ -423,28 +423,6 @@
                 "redis_cache_ttl": "86400"
             }
         },
-        "CERT-bund Contact Database": {
-            "description": "Retrieve contact information from a PostgreSQL database.",
-            "module": "intelmq.bots.experts.certbund_contact.expert",
-            "parameters": {
-                "database": "contactdb",
-                "host": "localhost",
-                "password": "<password>",
-                "port": "5432",
-                "sections": "source",
-                "sslmode": "require",
-                "user": "intelmq"
-            }
-        },
-        "CERT-bund Contact Rules": {
-            "description": "Determine how and whom to notify about the event.",
-            "module": "intelmq.bots.experts.certbund_contact.ruleexpert",
-            "parameters": {
-                "script_directory": "/opt/intelmq/var/lib/bots/notification_rules",
-                "sections": "source",
-                "remove_contact_data": true
-            }
-        },
         "CERT.at Contact Database": {
             "description": "Cert.at Contact Database is the bot responsible to get CERT. Set filter to true if you want to filter out events for cert.at. Set add_cc to true if you want to overwrite an existing CC value.",
             "module": "intelmq.bots.experts.certat_contact.expert",
